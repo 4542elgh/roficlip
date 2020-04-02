@@ -35,10 +35,10 @@ if [ -n "$SELECTION" ]; then
   NUMBER="$(echo "$SELECTION" | cut -c1-3 | sed 's/^0*//')"
 
   # Extract clipboard history from clipster and find the nth non-empty clip based selected line number
-  EXACT_SELECTION="$(clipster -c -o -n 500 -0 \
+  EXACT_SELECTION="$(clipster -o -n 500 -0 \
                    | gawk 'BEGIN {RS = "\0"; ORS = "\0"} NF > 0 { print }' \
                    | gawk 'BEGIN {RS = "\0"}'"NR == $NUMBER { print; exit }")"
 
   # Echo the selection back to clipster
-  echo -n "$EXACT_SELECTION" | clipster -c
+  echo -n "$EXACT_SELECTION" | clipster -p
 fi
